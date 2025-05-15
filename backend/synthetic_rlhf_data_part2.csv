@@ -1,0 +1,675 @@
+response,prompt,rating,reward
+"### 8. Folder Dependencies
+
+**External Dependencies**
+
+The `pages` folder in the Next-Shopify project relies on several external dependencies to fulfill its functionality:
+
+* **Next.js**: The core framework that powers the page routing and rendering system. The pages folder structure directly maps to URL routes following Next.js conventions.
+
+* **React**: Used for creating all page components and managing component state.
+
+* **React Context API**: Used through the custom context providers in the `context` folder to access cart state and functions.
+
+**Internal Dependencies**
+
+The `pages` folder has dependencies on several other folders within the project:
+
+* **Components Folder**: The pages use various UI components from the `components` folder to build their interfaces:
+  * `Layout`: Used in `_app.js` to provide consistent structure across all pages
+  * `SEO`: Used in multiple pages for setting page metadata
+  * `ProductListings`: Used in `index.js` to display product listings
+  * `ProductSection`: Used in `products/[product].js` to display product details
+  * `CartTable`, `CheckOutButton`, `BackToProductButton`: Used in `cart.js` for cart functionality
+
+* **Context Folder**: The pages use context providers and hooks from the `context` folder:
+  * `useCartContext`: Used in `cart.js` to access cart state
+  * `useAddToCartContext`: Used indirectly through product components
+  * `useUpdateCartQuantityContext`: Used indirectly through cart components
+
+* **Lib Folder**: The pages use functions from the `lib` folder for data fetching:
+  * `getAllProductsInCollection`: Used in `getStaticProps` of `index.js`
+  * `getProductSlugs`: Used in `getStaticPaths` of `products/[product].js`
+  * `getProduct`: Used in `getStaticProps` of `products/[product].js`
+
+* **Utils Folder**: The pages indirectly use utility functions from the `utils` folder through the context and components.
+
+**Dependency Graph**
+
+The dependency relationships of the `pages` folder can be visualized as follows:
+
+```
+pages/
+  ├── depends on → components/
+  ├── depends on → context/
+  ├── depends on → lib/
+  └── indirectly depends on → utils/
+```
+
+**Version Constraints**
+
+The `pages` folder functionality is constrained by the following version dependencies:
+
+* **Next.js**: Version ^12.1.0 as specified in `package.json`
+* **React**: Version ^17.0.2 as specified in `package.json`
+
+These version constraints ensure compatibility between the page components and the underlying framework features they utilize.","You are a technical documentation expert creating comprehensive folder-level documentation. Your task is to synthesize information from multiple files and subfolders into cohesive, accurate documentation.
+
+Key Requirements:
+- Focus on factual information derived directly from the provided documentation
+- Maintain consistent terminology across sections
+- Highlight relationships and dependencies between components
+- Use clear, precise language without speculation
+- Include only information that is explicitly present in the source documentation
+
+Context:
+Folder Path: ./uploaded_projects\Next-Shopify\next-shopify-starter-main\pages
+Section: folder_dependencies
+
+Files Documentation:
+File: ./uploaded_projects\Next-Shopify\next-shopify-starter-main\pages\_app.js
+This file imports Layout and SEO components from the components folder.
+
+File: ./uploaded_projects\Next-Shopify\next-shopify-starter-main\pages\index.js
+This file imports StoreHeading and ProductListings components and uses getAllProductsInCollection from the lib folder.
+
+File: ./uploaded_projects\Next-Shopify\next-shopify-starter-main\pages\cart.js
+This file imports SEO, PageTitle, CartTable, CheckOutButton, and BackToProductButton components and uses useCartContext from the context folder.
+
+File: ./uploaded_projects\Next-Shopify\next-shopify-starter-main\pages\products\[product].js
+This file imports ProductSection component and uses getProductSlugs and getProduct from the lib folder.
+
+Output Format:
+### 8. Folder Dependencies
+
+**External Dependencies**
+[List and describe external libraries and frameworks used]
+
+**Internal Dependencies**
+[Detail dependencies on other folders within the project]
+
+**Dependency Graph**
+[Visualize the dependency relationships]
+
+**Version Constraints**
+[Note any version requirements or constraints]
+
+Guidelines:
+1. Synthesize information across all files and subfolders to create a unified narrative
+2. Preserve technical accuracy and specificity from source documentation
+3. Highlight common patterns and relationships
+4. Use consistent terminology throughout
+5. Format code examples with proper syntax highlighting
+6. Include cross-references between related components",4,0.8
+"### 9. Folder Examples
+
+**Common Use Cases**
+
+The `lib` folder provides essential functionality for interacting with the Shopify API. Here are some common use cases with examples:
+
+**1. Fetching All Products**
+
+To retrieve all products from a collection for display on the homepage:
+
+```javascript
+import { getAllProductsInCollection } from '../lib/shopify';
+
+export async function getStaticProps() {
+  const products = await getAllProductsInCollection();
+  
+  return {
+    props: {
+      products
+    }
+  };
+}
+```
+
+This example shows how the `getAllProductsInCollection` function is used in the `getStaticProps` function of the index page to fetch products during build time.
+
+**2. Generating Dynamic Product Pages**
+
+To generate paths for all product pages during static site generation:
+
+```javascript
+import { getProductSlugs } from '../lib/shopify';
+
+export async function getStaticPaths() {
+  const productSlugs = await getProductSlugs();
+  
+  const paths = productSlugs.map((slug) => {
+    return {
+      params: { product: slug.node.handle }
+    };
+  });
+  
+  return {
+    paths,
+    fallback: false
+  };
+}
+```
+
+This example demonstrates how `getProductSlugs` is used in the `getStaticPaths` function to create dynamic routes for product pages.
+
+**3. Fetching Individual Product Details**
+
+To retrieve details for a specific product by its handle:
+
+```javascript
+import { getProduct } from '../lib/shopify';
+
+export async function getStaticProps({ params }) {
+  const productData = await getProduct(params.product);
+  
+  return {
+    props: {
+      productData
+    }
+  };
+}
+```
+
+This example shows how the `getProduct` function is used to fetch data for a specific product based on its handle (slug).
+
+**4. Creating a New Checkout**
+
+To create a new checkout when a user adds their first item to the cart:
+
+```javascript
+import { createCheckout } from '../lib/shopify';
+import { saveLocalData } from '../utils/helpers';
+
+async function addFirstItemToCart(variantId, quantity) {
+  const checkout = await createCheckout(variantId, quantity);
+  
+  const cart = [{
+    variantId,
+    quantity,
+    // Additional product details
+  }];
+  
+  saveLocalData(cart, checkout.id, checkout.webUrl);
+  
+  return checkout;
+}
+```
+
+This example demonstrates how `createCheckout` might be used to initialize a new checkout process when a user adds their first item to the cart.
+
+**5. Updating an Existing Checkout**
+
+To update an existing checkout when a user modifies their cart:
+
+```javascript
+import { updateCheckout } from '../lib/shopify';
+
+async function updateExistingCheckout(checkoutId, lineItems) {
+  const updatedCheckout = await updateCheckout(checkoutId, lineItems);
+  
+  return updatedCheckout;
+}
+```
+
+This example shows how `updateCheckout` might be used to modify an existing checkout when the cart contents change.
+
+**Integration Examples**
+
+The functions in the `lib` folder are typically integrated with other parts of the application:
+
+**1. Integration with React Context**
+
+```javascript
+import { createCheckout, updateCheckout } from '../lib/shopify';
+
+function CartProvider({ children }) {
+  const [cart, setCart] = useState([]);
+  const [checkoutId, setCheckoutId] = useState('');
+  const [checkoutUrl, setCheckoutUrl] = useState('');
+  
+  async function addToCart(newItem) {
+    if (cart.length === 0) {
+      const checkout = await createCheckout(newItem.variantId, newItem.quantity);
+      setCheckoutId(checkout.id);
+      setCheckoutUrl(checkout.webUrl);
+      // Update cart and save data
+    } else {
+      const lineItems = cart.map(item => ({
+        variantId: item.variantId,
+        quantity: item.quantity
+      }));
+      await updateCheckout(checkoutId, lineItems);
+      // Update cart and save data
+    }
+  }
+  
+  // Additional context code
+}
+```
+
+This example shows how the Shopify API functions might be integrated with a React context provider to manage cart state.
+
+**2. Integration with Next.js Data Fetching**
+
+```javascript
+// pages/index.js
+import { getAllProductsInCollection } from '../lib/shopify';
+import ProductListings from '../components/ProductListings';
+
+export default function IndexPage({ products }) {
+  return (
+    <div>
+      <h1>Products</h1>
+      <ProductListings products={products} />
+    </div>
+  );
+}
+
+export async function getStaticProps() {
+  const products = await getAllProductsInCollection();
+  
+  return {
+    props: {
+      products
+    },
+    revalidate: 60 // Revalidate every 60 seconds
+  };
+}
+```
+
+This example demonstrates how the Shopify API functions are integrated with Next.js data fetching methods to provide data for page rendering.
+
+These examples illustrate the versatility and importance of the `lib` folder in connecting the application to the Shopify API and enabling core e-commerce functionality.","You are a technical documentation expert creating comprehensive folder-level documentation. Your task is to synthesize information from multiple files and subfolders into cohesive, accurate documentation.
+
+Key Requirements:
+- Focus on factual information derived directly from the provided documentation
+- Maintain consistent terminology across sections
+- Highlight relationships and dependencies between components
+- Use clear, precise language without speculation
+- Include only information that is explicitly present in the source documentation
+
+Context:
+Folder Path: ./uploaded_projects\Next-Shopify\next-shopify-starter-main\lib
+Section: folder_examples
+
+Files Documentation:
+File: ./uploaded_projects\Next-Shopify\next-shopify-starter-main\lib\shopify.js
+This file contains functions for interacting with the Shopify API using GraphQL queries.
+
+Functions:
+- callShopify(query): Sends GraphQL queries to the Shopify API
+- getAllProductsInCollection(): Retrieves all products in a collection
+- getProductSlugs(): Gets the handles of all products
+- getProduct(handle): Retrieves a specific product by handle
+- createCheckout(id, quantity): Creates a new checkout
+- updateCheckout(id, lineItems): Updates an existing checkout
+
+Usage Examples:
+- getAllProductsInCollection is used in pages/index.js to fetch products
+- getProductSlugs is used in pages/products/[product].js for dynamic routes
+- getProduct is used in pages/products/[product].js to fetch product details
+- createCheckout and updateCheckout are used through the context/Store.js file
+
+Output Format:
+### 9. Folder Examples
+
+**Common Use Cases**
+[Provide:
+- Complete, runnable examples
+- Expected inputs and outputs
+- Error handling examples
+- Configuration examples]
+
+**Integration Examples**
+[Show:
+- How to use with other components
+- Common patterns
+- Best practices
+- Performance optimization examples]
+
+Guidelines:
+1. Synthesize information across all files and subfolders to create a unified narrative
+2. Preserve technical accuracy and specificity from source documentation
+3. Highlight common patterns and relationships
+4. Use consistent terminology throughout
+5. Format code examples with proper syntax highlighting
+6. Include cross-references between related components",5,1.0
+"### 10. Project Overview
+
+**Project Summary**
+
+The user-order-fastapi project is a modern, high-performance API service built with FastAPI for managing users and orders in a microservices architecture. The project provides a comprehensive solution for user authentication, order processing, and data management with a focus on performance, type safety, and developer experience.
+
+**Core Functionality and Features**
+
+The project includes the following core features:
+
+* **User Management**: Complete user lifecycle management including registration, authentication, profile management, and role-based access control.
+* **Order Processing**: End-to-end order management with creation, status tracking, and history.
+* **Database Integration**: Robust PostgreSQL integration with SQLAlchemy ORM for data persistence.
+* **API Documentation**: Automatic interactive API documentation using Swagger UI and ReDoc.
+* **Authentication**: JWT-based authentication system with refresh token support.
+* **Containerization**: Docker and Docker Compose setup for easy deployment and development.
+* **Migration Management**: Database migration handling with Alembic.
+
+**Target Users/Stakeholders**
+
+The project is designed for:
+
+* **Developers**: Building e-commerce or order management systems requiring a robust backend API.
+* **System Architects**: Implementing microservices architectures with user and order management components.
+* **DevOps Engineers**: Seeking containerized applications with clear deployment patterns.
+* **Product Managers**: Needing a flexible order management system that can be customized to business requirements.
+
+**Business Value and Use Cases**
+
+The user-order-fastapi project delivers value through:
+
+* **Reduced Development Time**: Pre-built user and order management functionality allows teams to focus on business-specific features.
+* **Scalability**: The microservices architecture and FastAPI foundation provide excellent performance under load.
+* **Flexibility**: The modular design allows for customization to specific business requirements.
+* **Developer Productivity**: Type hints, automatic documentation, and modern Python practices improve developer experience.
+
+Common use cases include:
+
+* E-commerce platforms requiring user accounts and order processing
+* Subscription-based services with recurring order management
+* Inventory management systems with user access controls
+* Service booking platforms with appointment tracking
+
+**Project Structure and Architecture**
+
+The project follows a clean, modular architecture:
+
+* **app/**: Main application package
+  * **api/**: API endpoints organized by resource (users, orders)
+  * **core/**: Core functionality including config, security, and database
+  * **crud/**: Database CRUD operations
+  * **db/**: Database models and session management
+  * **schemas/**: Pydantic models for request/response validation
+
+* **alembic/**: Database migration management
+* **docker-compose.yaml**: Container orchestration for the application and database
+
+The architecture follows modern best practices including:
+
+* Separation of concerns with clear module boundaries
+* Dependency injection for testability
+* Repository pattern for data access
+* Service layer for business logic
+
+This structure ensures maintainability, testability, and scalability as the application grows.","You are a technical documentation expert creating comprehensive project-level documentation. Your task is to synthesize information from root-level files and immediate child folders into cohesive, accurate project documentation.
+
+Key Requirements:
+- Create high-level project documentation that provides a clear overview of the entire system
+- Synthesize information from both files and folders documentations to create a complete picture
+- Maintain consistent terminology and technical accuracy
+- Focus on project-wide patterns, architectures, and relationships
+- Include only information that is explicitly present in the source documentation
+
+Context:
+Project Name: user-order-fastapi
+Project Path: ./uploaded_projects\user-order-fastapi\user-order-fastapi-main
+Section: Project Overview
+
+Available Documentation:
+File Documentation:
+File: ./uploaded_projects\user-order-fastapi\user-order-fastapi-main\requirements.txt
+This file lists dependencies including fastapi, sqlalchemy, alembic, pydantic, and jwt libraries.
+
+File: ./uploaded_projects\user-order-fastapi\user-order-fastapi-main\docker-compose.yaml
+This file defines services for the API and PostgreSQL database.
+
+Folder Documentation:
+Folder: ./uploaded_projects\user-order-fastapi\user-order-fastapi-main\app
+This folder contains the main application code including API endpoints, database models, and business logic.
+
+Folder: ./uploaded_projects\user-order-fastapi\user-order-fastapi-main\alembic
+This folder contains database migration scripts and configuration.
+
+Output Format:
+### 1. Project Overview
+
+**Project Summary**
+[Provide a concise overview of the project's purpose and scope]
+
+**Core Functionality and Features**
+[List and describe the main features and capabilities]
+
+**Target Users/Stakeholders**
+[Identify the intended users and stakeholders]
+
+**Business Value and Use Cases**
+[Explain the business problems solved and common use cases]
+
+**Project Structure and Architecture**
+[Describe the high-level organization and architectural patterns]
+
+Guidelines:
+1. Synthesize information across all files and folders to create a unified narrative
+2. Preserve technical accuracy and specificity from source documentation
+3. Highlight common patterns and relationships
+4. Use consistent terminology throughout",5,1.0
+"### 11. Technical Infrastructure
+
+**Technology Stack**
+
+The user-order-fastapi project is built on a modern Python-based technology stack designed for high performance, type safety, and developer productivity:
+
+* **FastAPI**: Core web framework providing high-performance API endpoints with automatic validation and documentation.
+* **Pydantic**: Data validation and settings management using Python type annotations.
+* **SQLAlchemy**: SQL toolkit and Object-Relational Mapping (ORM) library for database interactions.
+* **Alembic**: Database migration tool for SQLAlchemy.
+* **PostgreSQL**: Relational database for persistent data storage.
+* **Python 3.8+**: Modern Python with type hints and async support.
+* **Docker & Docker Compose**: Containerization and service orchestration.
+* **JWT**: JSON Web Tokens for authentication and authorization.
+* **Uvicorn**: ASGI server for running the FastAPI application.
+
+**System Architecture**
+
+The application follows a layered architecture pattern with clear separation of concerns:
+
+1. **API Layer**: FastAPI routes and endpoints that handle HTTP requests and responses.
+2. **Service Layer**: Business logic implementation and coordination between components.
+3. **Data Access Layer**: SQLAlchemy models and CRUD operations for database interaction.
+4. **Database Layer**: PostgreSQL database for persistent storage.
+
+The system is designed as a microservice that can be deployed independently or as part of a larger microservices ecosystem. The architecture supports horizontal scaling and follows RESTful API design principles.
+
+**Infrastructure Components**
+
+Key infrastructure components include:
+
+* **Web Server**: Uvicorn ASGI server running the FastAPI application.
+* **Database**: PostgreSQL instance for data persistence.
+* **Authentication System**: JWT-based authentication with token generation and validation.
+* **Configuration Management**: Environment-based configuration using Pydantic settings models.
+* **Migration System**: Alembic for managing database schema changes.
+* **Containerization**: Docker for consistent deployment environments.
+* **Service Orchestration**: Docker Compose for local development and testing.
+
+**Deployment and Hosting**
+
+The application is designed for flexible deployment options:
+
+* **Local Development**: Using Docker Compose to run the API and database services.
+* **Container Orchestration**: Ready for deployment to Kubernetes or other container orchestration platforms.
+* **Cloud Deployment**: Compatible with cloud platforms like AWS, GCP, or Azure.
+
+The deployment process is streamlined through containerization, allowing for consistent environments across development, testing, and production. The docker-compose.yaml file provides a reference configuration that can be adapted for different deployment targets.
+
+Key deployment considerations include:
+
+* Database connection management and pooling
+* Environment-specific configuration through environment variables
+* Health checks and monitoring
+* Scaling strategies for handling increased load
+
+The infrastructure is designed to be cloud-native and follows modern DevOps practices for continuous integration and deployment.","You are a technical documentation expert creating comprehensive project-level documentation. Your task is to synthesize information from root-level files and immediate child folders into cohesive, accurate project documentation.
+
+Key Requirements:
+- Create high-level project documentation that provides a clear overview of the entire system
+- Synthesize information from both files and folders documentations to create a complete picture
+- Maintain consistent terminology and technical accuracy
+- Focus on project-wide patterns, architectures, and relationships
+- Include only information that is explicitly present in the source documentation
+
+Context:
+Project Name: user-order-fastapi
+Project Path: ./uploaded_projects\user-order-fastapi\user-order-fastapi-main
+Section: Technical Infrastructure
+
+Available Documentation:
+File Documentation:
+File: ./uploaded_projects\user-order-fastapi\user-order-fastapi-main\requirements.txt
+This file lists dependencies including:
+- fastapi>=0.68.0
+- sqlalchemy>=1.4.23
+- alembic>=1.7.1
+- pydantic>=1.8.2
+- python-jose[cryptography]>=3.3.0
+- passlib[bcrypt]>=1.7.4
+- psycopg2-binary>=2.9.1
+- uvicorn>=0.15.0
+
+File: ./uploaded_projects\user-order-fastapi\user-order-fastapi-main\docker-compose.yaml
+This file defines services for:
+- API service running on port 8000
+- PostgreSQL database with environment variables
+
+Folder Documentation:
+Folder: ./uploaded_projects\user-order-fastapi\user-order-fastapi-main\app
+This folder contains the main application code organized in layers including api, core, crud, db, and schemas.
+
+Folder: ./uploaded_projects\user-order-fastapi\user-order-fastapi-main\alembic
+This folder contains database migration configuration and scripts.
+
+Output Format:
+### 2. Technical Infrastructure
+
+**Technology Stack**
+[List and describe the core technologies used in the project]
+
+**System Architecture**
+[Describe the high-level architecture, including layers and their responsibilities]
+
+**Infrastructure Components**
+[Detail key infrastructure components and their roles]
+
+**Deployment and Hosting**
+[Explain deployment process and hosting requirements]
+
+Guidelines:
+1. Synthesize information across all files and folders to create a unified narrative
+2. Preserve technical accuracy and specificity from source documentation
+3. Highlight common patterns and relationships
+4. Use consistent terminology throughout",5,1.0
+"### 12. Component Organization
+
+**Component Hierarchy**
+
+The user-order-fastapi project follows a well-structured component hierarchy that organizes code by functionality and responsibility:
+
+* **API Components** (`app/api/`)
+  * API Router: Central router that aggregates all endpoint routers
+  * User Endpoints: Routes for user registration, authentication, and management
+  * Order Endpoints: Routes for order creation, retrieval, and management
+  * Dependencies: Reusable dependency injection components for authentication and permissions
+
+* **Core Components** (`app/core/`)
+  * Configuration: Application settings and environment variable management
+  * Security: Authentication, authorization, and password handling
+  * Database: Database connection and session management
+
+* **Data Access Components** (`app/crud/`)
+  * User CRUD: Database operations for user entities
+  * Order CRUD: Database operations for order entities
+  * Base CRUD: Generic CRUD operations for reuse across entities
+
+* **Data Model Components** (`app/db/`)
+  * Base Model: Common fields and methods for all database models
+  * User Model: Database schema for user entities
+  * Order Model: Database schema for order entities
+  * Relationships: Definitions of relationships between models
+
+* **Schema Components** (`app/schemas/`)
+  * User Schemas: Pydantic models for user request/response validation
+  * Order Schemas: Pydantic models for order request/response validation
+  * Token Schemas: Pydantic models for authentication tokens
+
+**Component Interfaces**
+
+Components in the user-order-fastapi project communicate through well-defined interfaces:
+
+* **API to Service Layer**: API endpoints call service functions with validated request data
+* **Service to Data Access Layer**: Service functions use CRUD operations to interact with the database
+* **Data Access to Database Layer**: CRUD operations use SQLAlchemy models and sessions
+* **Cross-Cutting Concerns**: Components use dependency injection for authentication and database sessions
+
+The interfaces between components are designed to be explicit and type-safe, leveraging Python's type hints and Pydantic's validation capabilities.
+
+**State Management**
+
+The application manages state through several mechanisms:
+
+* **Database State**: Persistent state stored in PostgreSQL database
+* **Session State**: User authentication state managed through JWT tokens
+* **Request State**: Request-scoped state managed through FastAPI's dependency injection system
+* **Application State**: Global application state managed through FastAPI's app state and lifespan events
+
+State management follows best practices for web applications, avoiding shared mutable state and preferring explicit state passing through function parameters and return values.
+
+**Component Reusability**
+
+The project emphasizes component reusability through several patterns:
+
+* **Base Classes**: Common functionality extracted to base classes (e.g., BaseCRUD)
+* **Generic Functions**: Type-parameterized functions for reuse across different entity types
+* **Dependency Injection**: Reusable dependencies for common concerns like authentication
+* **Pydantic Models**: Inheritance and composition of schema models for DRY validation logic
+
+These reusability patterns reduce code duplication and ensure consistent behavior across the application. Components are designed with clear responsibilities and interfaces, making them easier to test, maintain, and extend.","You are a technical documentation expert creating comprehensive project-level documentation. Your task is to synthesize information from root-level files and immediate child folders into cohesive, accurate project documentation.
+
+Key Requirements:
+- Create high-level project documentation that provides a clear overview of the entire system
+- Synthesize information from both files and folders documentations to create a complete picture
+- Maintain consistent terminology and technical accuracy
+- Focus on project-wide patterns, architectures, and relationships
+- Include only information that is explicitly present in the source documentation
+
+Context:
+Project Name: user-order-fastapi
+Project Path: ./uploaded_projects\user-order-fastapi\user-order-fastapi-main
+Section: Component Organization
+
+Available Documentation:
+Folder Documentation:
+Folder: ./uploaded_projects\user-order-fastapi\user-order-fastapi-main\app
+This folder contains the following subfolders:
+- api: Contains API endpoints for users and orders
+- core: Contains configuration, security, and database connection code
+- crud: Contains database CRUD operations for users and orders
+- db: Contains SQLAlchemy models for users and orders
+- schemas: Contains Pydantic models for request/response validation
+
+Output Format:
+### 3. Component Organization
+
+**Component Hierarchy**
+[Describe the component tree and relationships]
+
+**Component Interfaces**
+[Explain how components communicate with each other]
+
+**State Management**
+[Detail how state is managed across components]
+
+**Component Reusability**
+[Discuss patterns for component reuse and composition]
+
+Guidelines:
+1. Synthesize information across all files and folders to create a unified narrative
+2. Preserve technical accuracy and specificity from source documentation
+3. Highlight common patterns and relationships
+4. Use consistent terminology throughout",4,0.8

@@ -1,0 +1,277 @@
+response,prompt,rating,reward
+"### 17. API Endpoints
+
+The API has some endpoints for users and orders. Users can register and login. Orders can be created and viewed. The API uses JWT for auth.
+
+Endpoints:
+- POST /users/register
+- POST /users/login
+- GET /users/me
+- POST /orders
+- GET /orders
+- GET /orders/{id}
+
+The API is built with FastAPI and follows REST principles. It returns JSON responses and uses standard HTTP status codes.
+
+Authentication is required for most endpoints except registration and login. The token must be included in the Authorization header.
+
+The API is documented using Swagger UI at /docs endpoint.","You are a technical documentation expert creating comprehensive project-level documentation. Your task is to synthesize information from root-level files and immediate child folders into cohesive, accurate project documentation.
+
+Key Requirements:
+- Create high-level project documentation that provides a clear overview of the entire system
+- Synthesize information from both files and folders documentations to create a complete picture
+- Maintain consistent terminology and technical accuracy
+- Focus on project-wide patterns, architectures, and relationships
+- Include only information that is explicitly present in the source documentation
+
+Context:
+Project Name: user-order-fastapi
+Project Path: ./uploaded_projects\user-order-fastapi\user-order-fastapi-main
+Section: API Endpoints
+
+Available Documentation:
+File Documentation:
+File: ./uploaded_projects\user-order-fastapi\user-order-fastapi-main\app\api\api.py
+This file defines API router with prefixes for users and orders endpoints.
+
+Folder Documentation:
+Folder: ./uploaded_projects\user-order-fastapi\user-order-fastapi-main\app\api\endpoints
+This folder contains endpoint implementations for users and orders.
+
+Output Format:
+### 7. API Endpoints
+
+**Available Endpoints**
+[List and describe all API endpoints with their HTTP methods, paths, and purposes]
+
+**Authentication and Authorization**
+[Explain how authentication works for the API endpoints]
+
+**Request and Response Formats**
+[Detail the expected request formats and response structures]
+
+**Error Handling**
+[Describe how errors are handled and returned]
+
+Guidelines:
+1. Synthesize information across all files and folders to create a unified narrative
+2. Preserve technical accuracy and specificity from source documentation
+3. Highlight common patterns and relationships
+4. Use consistent terminology throughout",2,0.2
+
+"### 18. Database Models
+
+The database has tables for users and orders. The User model has fields like id, email, and password. The Order model has fields like id, user_id, and status.
+
+The models use SQLAlchemy ORM. The database is PostgreSQL. The models are defined in the app/db/models folder.
+
+Relationships exist between models. A user can have many orders. Orders belong to users.
+
+The database schema is managed with Alembic migrations.","You are a technical documentation expert creating comprehensive folder-level documentation. Your task is to synthesize information from multiple files and subfolders into cohesive, accurate documentation.
+
+Key Requirements:
+- Focus on factual information derived directly from the provided documentation
+- Maintain consistent terminology across sections
+- Highlight relationships and dependencies between components
+- Use clear, precise language without speculation
+- Include only information that is explicitly present in the source documentation
+
+Context:
+Folder Path: ./uploaded_projects\user-order-fastapi\user-order-fastapi-main\app\db\models
+Section: database_models
+
+Files Documentation:
+File: ./uploaded_projects\user-order-fastapi\user-order-fastapi-main\app\db\models\user.py
+This file defines the User model with fields including id, email, hashed_password, is_active, and is_superuser.
+
+File: ./uploaded_projects\user-order-fastapi\user-order-fastapi-main\app\db\models\order.py
+This file defines the Order model with fields including id, status, total_amount, user_id, and created_at.
+
+Output Format:
+### 4. Database Models
+
+**Model Definitions**
+[Describe each model and its fields]
+
+**Relationships**
+[Explain relationships between models]
+
+**Field Types and Constraints**
+[Detail field types, constraints, and validations]
+
+**Database Schema**
+[Provide an overview of the database schema]
+
+Guidelines:
+1. Synthesize information across all files and subfolders to create a unified narrative
+2. Preserve technical accuracy and specificity from source documentation
+3. Highlight common patterns and relationships
+4. Use consistent terminology throughout",1,0.0
+
+"### 19. Security Implementation
+
+The app uses JWT tokens for security. Passwords are hashed with bcrypt. The SECRET_KEY is used to sign tokens.
+
+Authentication flow:
+1. User logs in with username/password
+2. System validates credentials
+3. JWT token is generated
+4. Token is sent to client
+5. Client uses token for subsequent requests
+
+The token contains user information and expiration time. It's validated on each request.
+
+Security best practices are followed like password hashing and token expiration.","You are a technical documentation expert creating comprehensive project-level documentation. Your task is to synthesize information from root-level files and immediate child folders into cohesive, accurate project documentation.
+
+Key Requirements:
+- Create high-level project documentation that provides a clear overview of the entire system
+- Synthesize information from both files and folders documentations to create a complete picture
+- Maintain consistent terminology and technical accuracy
+- Focus on project-wide patterns, architectures, and relationships
+- Include only information that is explicitly present in the source documentation
+
+Context:
+Project Name: user-order-fastapi
+Project Path: ./uploaded_projects\user-order-fastapi\user-order-fastapi-main
+Section: Security Implementation
+
+Available Documentation:
+File Documentation:
+File: ./uploaded_projects\user-order-fastapi\user-order-fastapi-main\app\core\security.py
+This file contains security utilities including password hashing, token generation, and verification functions.
+
+Folder Documentation:
+Folder: ./uploaded_projects\user-order-fastapi\user-order-fastapi-main\app\api\deps.py
+This file contains dependencies for authentication and authorization.
+
+Output Format:
+### 8. Security Implementation
+
+**Authentication Mechanism**
+[Describe the authentication system in detail]
+
+**Password Security**
+[Explain how passwords are secured]
+
+**Token Management**
+[Detail how tokens are generated, validated, and managed]
+
+**Authorization Controls**
+[Describe how permissions and access controls are implemented]
+
+**Security Best Practices**
+[Highlight security best practices implemented in the system]
+
+Guidelines:
+1. Synthesize information across all files and folders to create a unified narrative
+2. Preserve technical accuracy and specificity from source documentation
+3. Highlight common patterns and relationships
+4. Use consistent terminology throughout",2,0.2
+
+"### 20. Error Handling
+
+Errors in the API are handled by returning appropriate HTTP status codes and error messages. Common errors include validation errors, authentication errors, and not found errors.
+
+The error response format is JSON with a message field. The API uses FastAPI's built-in exception handling.
+
+Example error response:
+```json
+{
+  "detail": "Not found"
+}
+```
+
+Errors are logged for debugging purposes.","You are a technical documentation expert creating comprehensive project-level documentation. Your task is to synthesize information from root-level files and immediate child folders into cohesive, accurate project documentation.
+
+Key Requirements:
+- Create high-level project documentation that provides a clear overview of the entire system
+- Synthesize information from both files and folders documentations to create a complete picture
+- Maintain consistent terminology and technical accuracy
+- Focus on project-wide patterns, architectures, and relationships
+- Include only information that is explicitly present in the source documentation
+
+Context:
+Project Name: user-order-fastapi
+Project Path: ./uploaded_projects\user-order-fastapi\user-order-fastapi-main
+Section: Error Handling
+
+Available Documentation:
+File Documentation:
+File: ./uploaded_projects\user-order-fastapi\user-order-fastapi-main\app\api\errors\http_error.py
+This file defines custom HTTP exceptions and error handlers.
+
+Folder Documentation:
+Folder: ./uploaded_projects\user-order-fastapi\user-order-fastapi-main\app\api\errors
+This folder contains error handling utilities and exception definitions.
+
+Output Format:
+### 9. Error Handling
+
+**Error Response Format**
+[Describe the standard format for error responses]
+
+**Common Error Types**
+[List and explain common error scenarios and their corresponding responses]
+
+**Exception Handling Mechanism**
+[Explain how exceptions are caught and processed]
+
+**Error Logging**
+[Detail how errors are logged for monitoring and debugging]
+
+Guidelines:
+1. Synthesize information across all files and folders to create a unified narrative
+2. Preserve technical accuracy and specificity from source documentation
+3. Highlight common patterns and relationships
+4. Use consistent terminology throughout",1,0.0
+
+"### 21. Configuration Management
+
+The app uses environment variables for configuration. These are loaded from a .env file or the system environment.
+
+Config variables include database connection, security settings, and API settings.
+
+The config is managed by the app/core/config.py file which uses Pydantic for validation.
+
+Development and production environments use different configurations.","You are a technical documentation expert creating comprehensive project-level documentation. Your task is to synthesize information from root-level files and immediate child folders into cohesive, accurate project documentation.
+
+Key Requirements:
+- Create high-level project documentation that provides a clear overview of the entire system
+- Synthesize information from both files and folders documentations to create a complete picture
+- Maintain consistent terminology and technical accuracy
+- Focus on project-wide patterns, architectures, and relationships
+- Include only information that is explicitly present in the source documentation
+
+Context:
+Project Name: user-order-fastapi
+Project Path: ./uploaded_projects\user-order-fastapi\user-order-fastapi-main
+Section: Configuration Management
+
+Available Documentation:
+File Documentation:
+File: ./uploaded_projects\user-order-fastapi\user-order-fastapi-main\app\core\config.py
+This file defines configuration settings using Pydantic BaseSettings.
+
+File: ./uploaded_projects\user-order-fastapi\user-order-fastapi-main\.env.example
+This file provides an example of environment variables used by the application.
+
+Output Format:
+### 10. Configuration Management
+
+**Configuration Sources**
+[Describe where configuration values come from]
+
+**Available Configuration Options**
+[List and explain all configurable parameters]
+
+**Environment-Specific Configuration**
+[Explain how configuration differs between environments]
+
+**Configuration Validation**
+[Detail how configuration values are validated]
+
+Guidelines:
+1. Synthesize information across all files and folders to create a unified narrative
+2. Preserve technical accuracy and specificity from source documentation
+3. Highlight common patterns and relationships
+4. Use consistent terminology throughout",2,0.2

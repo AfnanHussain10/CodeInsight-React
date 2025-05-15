@@ -1,0 +1,681 @@
+response,prompt,rating,reward
+"### 1. Folder Overview
+
+**Folder Overview**
+
+The `components` folder contains a collection of reusable React components that form the building blocks of the user interface for the Next-Shopify application. These components are designed to be modular, maintainable, and easily integrated into various parts of the application.
+
+**Purpose and Scope**
+
+The primary purpose of the `components` folder is to provide a centralized location for all UI components, ensuring consistency across the application and promoting code reuse. The components in this folder are responsible for rendering the visual elements of the application, handling user interactions, and displaying data retrieved from the Shopify API.
+
+The scope of this folder includes:
+
+* **UI Components**: Buttons, forms, cards, and other visual elements.
+* **Layout Components**: Components that define the structure and layout of pages.
+* **Product Display Components**: Components for displaying product information, images, and prices.
+* **Cart Components**: Components for managing and displaying cart items.
+* **Navigation Components**: Components for site navigation and user wayfinding.
+
+These components serve as the interface between the application's business logic and the end user, translating data and functionality into an intuitive and engaging user experience.","You are a technical documentation expert creating comprehensive folder-level documentation. Your task is to synthesize information from multiple files and subfolders into cohesive, accurate documentation.
+
+Key Requirements:
+- Focus on factual information derived directly from the provided documentation
+- Maintain consistent terminology across sections
+- Highlight relationships and dependencies between components
+- Use clear, precise language without speculation
+- Include only information that is explicitly present in the source documentation
+
+Context:
+Folder Path: ./uploaded_projects\Next-Shopify\next-shopify-starter-main\components
+Section: folder_overview
+
+Files Documentation:
+File: ./uploaded_projects\Next-Shopify\next-shopify-starter-main\components\Footer.js
+Overview and Purpose: The Footer component provides a consistent footer section across all pages of the application.
+
+File: ./uploaded_projects\Next-Shopify\next-shopify-starter-main\components\Layout.js
+Overview and Purpose: The Layout component serves as the main wrapper for all pages, providing consistent structure and styling.
+
+File: ./uploaded_projects\Next-Shopify\next-shopify-starter-main\components\ProductCard.js
+Overview and Purpose: The ProductCard component displays product information in a card format for the product listings page.
+
+Output Format:
+**Folder Overview**
+[Provide a comprehensive summary that:
+- Describes the folder's primary functionality
+- Explains how it fits into the larger system
+- Highlights key features and capabilities]
+
+**Purpose and Scope**
+[Define:
+- The folder's main responsibilities
+- Core problems it solves
+- Target users/consumers of this code
+- Boundaries and limitations]
+
+Guidelines:
+1. Synthesize information across all files and subfolders to create a unified narrative
+2. Preserve technical accuracy and specificity from source documentation
+3. Highlight common patterns and relationships
+4. Use consistent terminology throughout
+5. Format code examples with proper syntax highlighting
+6. Include cross-references between related components",5,1.0
+"### 2. Technical Infrastructure
+
+**Technology Stack**
+
+The Next-Shopify project is built on a modern web technology stack designed for performance, scalability, and developer experience. The core technologies include:
+
+* **Next.js**: A React framework that provides server-side rendering, static site generation, and routing capabilities.
+* **React**: A JavaScript library for building user interfaces, used for creating reusable UI components.
+* **Tailwind CSS**: A utility-first CSS framework used for styling the application.
+* **Shopify API**: GraphQL-based API used for retrieving product data and managing checkout processes.
+
+**System Architecture**
+
+The application follows a client-side architecture with server-side rendering capabilities provided by Next.js. The system is organized into the following layers:
+
+* **Presentation Layer**: React components that render the UI and handle user interactions.
+* **State Management Layer**: React Context API used for managing application state, particularly for cart functionality.
+* **Data Access Layer**: Custom functions for interacting with the Shopify API using GraphQL queries.
+* **Persistence Layer**: Local storage used for maintaining cart state between sessions.
+
+**Infrastructure Components**
+
+The key infrastructure components of the Next-Shopify project include:
+
+* **Routing System**: Next.js routing for handling navigation between pages.
+* **API Integration**: Custom functions for making GraphQL requests to the Shopify API.
+* **State Management**: React Context for managing global state across components.
+* **Local Storage**: Browser's local storage for persisting cart data.
+
+**Deployment and Hosting**
+
+The application is designed to be deployed on platforms that support Next.js applications, such as Vercel or Netlify. The deployment process involves:
+
+1. Building the application using Next.js build process.
+2. Deploying the built assets to a hosting platform.
+3. Configuring environment variables for Shopify API access.
+
+The hosting environment should support server-side rendering and API routes for optimal performance.","You are a technical documentation expert creating comprehensive project-level documentation. Your task is to synthesize information from root-level files and immediate child folders into cohesive, accurate project documentation.
+
+Key Requirements:
+- Create high-level project documentation that provides a clear overview of the entire system
+- Synthesize information from both files and folders documentations to create a complete picture
+- Maintain consistent terminology and technical accuracy
+- Focus on project-wide patterns, architectures, and relationships
+- Include only information that is explicitly present in the source documentation
+
+Context:
+Project Name: Next-Shopify
+Project Path: ./uploaded_projects\Next-Shopify\next-shopify-starter-main
+Section: Technical Infrastructure
+
+Available Documentation:
+File Documentation:
+File: ./uploaded_projects\Next-Shopify\next-shopify-starter-main\package.json
+This file contains dependencies including next, react, react-dom, and tailwindcss.
+
+File: ./uploaded_projects\Next-Shopify\next-shopify-starter-main\next.config.js
+This file contains Next.js configuration including environment variables for Shopify API access.
+
+Folder Documentation:
+Folder: ./uploaded_projects\Next-Shopify\next-shopify-starter-main\lib
+This folder contains functions for interacting with the Shopify API using GraphQL.
+
+Folder: ./uploaded_projects\Next-Shopify\next-shopify-starter-main\context
+This folder contains React context providers for cart management.
+
+Folder: ./uploaded_projects\Next-Shopify\next-shopify-starter-main\utils
+This folder contains utility functions for local storage and checkout management.
+
+Output Format:
+### 2. Technical Infrastructure
+
+**Technology Stack**
+[List and describe the core technologies used in the project]
+
+**System Architecture**
+[Describe the high-level architecture, including layers and their responsibilities]
+
+**Infrastructure Components**
+[Detail key infrastructure components and their roles]
+
+**Deployment and Hosting**
+[Explain deployment process and hosting requirements]
+
+Guidelines:
+1. Synthesize information across all files and folders to create a unified narrative
+2. Preserve technical accuracy and specificity from source documentation
+3. Highlight common patterns and relationships
+4. Use consistent terminology throughout",4,0.8
+"### 3. Key Functions
+
+**Core Functionality**
+
+The `utils` folder contains several utility functions that provide essential functionality for the Next-Shopify application. These functions can be categorized into the following groups:
+
+**Data Access and Storage Functions**
+
+* `saveLocalData(cart, checkoutId, checkoutUrl)`: Stores cart data, checkout ID, and checkout URL in the browser's local storage.
+  * Parameters: `cart` (array of cart items), `checkoutId` (string), `checkoutUrl` (string)
+  * Return: None
+  * Purpose: Persists cart and checkout information between user sessions
+
+* `getLocalData()`: Retrieves stored cart data from local storage.
+  * Parameters: None
+  * Return: Object containing `cart`, `checkoutId`, and `checkoutUrl` properties
+  * Purpose: Loads previously saved cart state when the application initializes
+
+* `setLocalData(setCart, setCheckoutId, setCheckoutUrl)`: Sets React state based on data retrieved from local storage.
+  * Parameters: `setCart` (state setter function), `setCheckoutId` (state setter function), `setCheckoutUrl` (state setter function)
+  * Return: None
+  * Purpose: Updates React state with persisted cart data
+
+**Shopify Checkout Management Functions**
+
+* `createShopifyCheckout(newItem)`: Creates a new checkout in Shopify with the specified item.
+  * Parameters: `newItem` (object containing variant ID and quantity)
+  * Return: Promise resolving to checkout data
+  * Purpose: Initializes a new checkout process when a user adds their first item to the cart
+
+* `updateShopifyCheckout(updatedCart, checkoutId)`: Updates an existing Shopify checkout with the current cart items.
+  * Parameters: `updatedCart` (array of cart items), `checkoutId` (string)
+  * Return: Promise resolving to updated checkout data
+  * Purpose: Synchronizes the local cart state with the Shopify checkout
+
+**Utility Calculation Functions**
+
+* `getCartSubTotal(cart)`: Calculates the subtotal of all items in the cart.
+  * Parameters: `cart` (array of cart items)
+  * Return: Number representing the cart subtotal
+  * Purpose: Displays the current subtotal to the user in the cart interface
+
+**Function Relationships and Dependencies**
+
+The utility functions in this folder have the following relationships and dependencies:
+
+* The local storage functions (`saveLocalData`, `getLocalData`, `setLocalData`) work together to maintain cart state persistence.
+* The Shopify checkout functions (`createShopifyCheckout`, `updateShopifyCheckout`) depend on the Shopify API integration functions in the `lib` folder.
+* The cart management functions in the `context` folder use these utility functions to handle cart operations and persistence.
+
+These utility functions serve as the glue between the application's UI components and the Shopify API, ensuring that cart data is properly managed and synchronized across the application.","You are a technical documentation expert creating comprehensive folder-level documentation. Your task is to synthesize information from multiple files and subfolders into cohesive, accurate documentation.
+
+Key Requirements:
+- Focus on factual information derived directly from the provided documentation
+- Maintain consistent terminology across sections
+- Highlight relationships and dependencies between components
+- Use clear, precise language without speculation
+- Include only information that is explicitly present in the source documentation
+
+Context:
+Folder Path: ./uploaded_projects\Next-Shopify\next-shopify-starter-main\utils
+Section: key_functions
+
+Files Documentation:
+File: ./uploaded_projects\Next-Shopify\next-shopify-starter-main\utils\helpers.js
+This file contains utility functions for managing cart data, local storage, and Shopify checkout operations.
+
+Functions:
+- saveLocalData(cart, checkoutId, checkoutUrl): Saves cart data to local storage
+- getLocalData(): Retrieves cart data from local storage
+- setLocalData(setCart, setCheckoutId, setCheckoutUrl): Sets React state based on local storage data
+- createShopifyCheckout(newItem): Creates a new Shopify checkout with the specified item
+- updateShopifyCheckout(updatedCart, checkoutId): Updates an existing Shopify checkout
+- getCartSubTotal(cart): Calculates the subtotal of the cart
+
+Output Format:
+### 3. Key Functions
+
+**Core Functionality**
+[Describe the main functions and their purposes]
+
+**Function Categories**
+[Group functions by category and explain their relationships]
+
+**Function Relationships and Dependencies**
+[Explain how functions interact with each other and with other components]
+
+Guidelines:
+1. Synthesize information across all files and subfolders to create a unified narrative
+2. Preserve technical accuracy and specificity from source documentation
+3. Highlight common patterns and relationships
+4. Use consistent terminology throughout
+5. Format code examples with proper syntax highlighting
+6. Include cross-references between related components",5,1.0
+"### 4. Component Organization
+
+**Component Hierarchy**
+
+The Next-Shopify project follows a well-structured component hierarchy that organizes components based on their functionality and relationships. The component structure can be visualized as follows:
+
+* **Layout Components**
+  * `Layout`: The main wrapper component that provides consistent structure across all pages
+    * `Nav`: Navigation component for site-wide navigation
+    * `Main Content`: Page-specific content rendered through Next.js pages
+    * `Footer`: Footer component with site information
+
+* **Page Components** (in the `pages` folder)
+  * `_app.js`: Custom App component that wraps all pages with the Layout component
+  * `index.js`: Home page component that displays product listings
+  * `cart.js`: Cart page component for managing cart items
+  * `products/[product].js`: Dynamic product page component for individual products
+
+* **Product Components**
+  * `ProductListings`: Component for displaying multiple product cards
+    * `ProductCard`: Card component for displaying product summary information
+  * `ProductSection`: Component for displaying detailed product information
+    * `ProductDetails`: Component for displaying product details
+    * `ProductImage`: Component for displaying product images and thumbnails
+
+* **Cart Components**
+  * `CartTable`: Component for displaying cart items in a table format
+    * `CartItem`: Component for displaying individual cart items
+  * `CheckOutButton`: Component for proceeding to checkout
+
+**Component Interfaces**
+
+Components in the Next-Shopify project communicate through well-defined interfaces, primarily using props and context:
+
+* **Props**: Used for passing data down the component tree
+  * Product components receive product data through props
+  * Cart components receive cart items and functions through props
+
+* **Context**: Used for global state management
+  * `CartContext`: Provides cart state and functions to components throughout the application
+  * `AddToCartContext`: Provides the addToCart function to product components
+  * `UpdateCartQuantityContext`: Provides the updateCartItemQuantity function to cart components
+
+**State Management**
+
+The application uses a combination of local component state and global context for state management:
+
+* **Local State**: Used for component-specific state
+  * UI state (e.g., active thumbnail in product images)
+  * Form state (e.g., quantity inputs)
+
+* **Global State**: Used for application-wide state
+  * Cart items and checkout information managed through React Context
+  * Persisted to local storage for state preservation between sessions
+
+**Component Reusability**
+
+The Next-Shopify project emphasizes component reusability through:
+
+* **Modular Design**: Components are designed to be self-contained and focused on specific functionality
+* **Prop-Based Configuration**: Components accept props for customization and data display
+* **Separation of Concerns**: UI components are separated from data fetching and business logic
+
+This organization allows for efficient development, easier maintenance, and consistent user experience across the application.","You are a technical documentation expert creating comprehensive project-level documentation. Your task is to synthesize information from root-level files and immediate child folders into cohesive, accurate project documentation.
+
+Key Requirements:
+- Create high-level project documentation that provides a clear overview of the entire system
+- Synthesize information from both files and folders documentations to create a complete picture
+- Maintain consistent terminology and technical accuracy
+- Focus on project-wide patterns, architectures, and relationships
+- Include only information that is explicitly present in the source documentation
+
+Context:
+Project Name: Next-Shopify
+Project Path: ./uploaded_projects\Next-Shopify\next-shopify-starter-main
+Section: Component Organization
+
+Available Documentation:
+Folder Documentation:
+Folder: ./uploaded_projects\Next-Shopify\next-shopify-starter-main\components
+This folder contains reusable React components including Layout, Nav, ProductCard, ProductDetails, CartTable, and CheckOutButton.
+
+Folder: ./uploaded_projects\Next-Shopify\next-shopify-starter-main\pages
+This folder contains Next.js page components including _app.js, index.js, cart.js, and product pages.
+
+Folder: ./uploaded_projects\Next-Shopify\next-shopify-starter-main\context
+This folder contains React context providers for cart management including CartProvider, useCartContext, useAddToCartContext, and useUpdateCartQuantityContext.
+
+Output Format:
+### 4. Component Organization
+
+**Component Hierarchy**
+[Describe the component tree and relationships]
+
+**Component Interfaces**
+[Explain how components communicate with each other]
+
+**State Management**
+[Detail how state is managed across components]
+
+**Component Reusability**
+[Discuss patterns for component reuse and composition]
+
+Guidelines:
+1. Synthesize information across all files and folders to create a unified narrative
+2. Preserve technical accuracy and specificity from source documentation
+3. Highlight common patterns and relationships
+4. Use consistent terminology throughout",4,0.8
+"### 5. Folder Architecture
+
+**Folder Structure**
+
+The `lib` folder in the Next-Shopify project serves as a central repository for core functionality related to API interactions. The folder has a flat structure with a single file, `shopify.js`, which contains all the functions for interacting with the Shopify API.
+
+```
+lib/
+  └── shopify.js
+```
+
+This simple structure reflects the focused purpose of the folder, which is to provide a clean interface for Shopify API operations without unnecessary complexity.
+
+**Design Patterns**
+
+The `lib` folder implements several key design patterns:
+
+* **Module Pattern**: The `shopify.js` file exports a collection of related functions as a module, encapsulating the implementation details while exposing a clean API for other parts of the application.
+
+* **Facade Pattern**: The functions in this folder provide a simplified interface to the complex Shopify GraphQL API, hiding the details of query construction and response parsing from the rest of the application.
+
+* **Promise-Based API**: All API interaction functions return Promises, allowing for asynchronous operations and clean error handling throughout the application.
+
+**Code Organization**
+
+The code within the `lib` folder is organized into logical groups of functions:
+
+* **API Communication**: The `callShopify` function serves as the foundation for all API interactions, handling the details of making HTTP requests to the Shopify GraphQL API.
+
+* **Product Retrieval**: Functions like `getAllProductsInCollection`, `getProductSlugs`, and `getProduct` provide specific operations for retrieving product data from Shopify.
+
+* **Checkout Management**: Functions like `createCheckout` and `updateCheckout` handle the creation and modification of Shopify checkouts.
+
+This organization allows for clear separation of concerns and makes the code easier to maintain and extend.
+
+**File Responsibilities**
+
+The `shopify.js` file has the following key responsibilities:
+
+* Constructing and executing GraphQL queries to the Shopify API
+* Parsing and transforming API responses into formats suitable for use by other components
+* Providing a consistent error handling approach for API interactions
+* Abstracting away the complexities of the Shopify API from the rest of the application
+
+By centralizing these responsibilities in a single file, the application maintains a clean separation between API interaction logic and the rest of the application's functionality.","You are a technical documentation expert creating comprehensive folder-level documentation. Your task is to synthesize information from multiple files and subfolders into cohesive, accurate documentation.
+
+Key Requirements:
+- Focus on factual information derived directly from the provided documentation
+- Maintain consistent terminology across sections
+- Highlight relationships and dependencies between components
+- Use clear, precise language without speculation
+- Include only information that is explicitly present in the source documentation
+
+Context:
+Folder Path: ./uploaded_projects\Next-Shopify\next-shopify-starter-main\lib
+Section: folder_architecture
+
+Files Documentation:
+File: ./uploaded_projects\Next-Shopify\next-shopify-starter-main\lib\shopify.js
+This file contains functions for interacting with the Shopify API using GraphQL queries.
+
+Functions:
+- callShopify(query): Sends GraphQL queries to the Shopify API
+- getAllProductsInCollection(): Retrieves all products in a collection
+- getProductSlugs(): Gets the handles of all products
+- getProduct(handle): Retrieves a specific product by handle
+- createCheckout(id, quantity): Creates a new checkout
+- updateCheckout(id, lineItems): Updates an existing checkout
+
+Output Format:
+### 5. Folder Architecture
+
+**Folder Structure**
+[Describe the organization of files and subfolders]
+
+**Design Patterns**
+[Identify architectural patterns and design principles used]
+
+**Code Organization**
+[Explain how code is organized within files]
+
+**File Responsibilities**
+[Detail the specific responsibilities of each file]
+
+Guidelines:
+1. Synthesize information across all files and subfolders to create a unified narrative
+2. Preserve technical accuracy and specificity from source documentation
+3. Highlight common patterns and relationships
+4. Use consistent terminology throughout
+5. Format code examples with proper syntax highlighting
+6. Include cross-references between related components",5,1.0
+"### 6. Dependencies and Requirements
+
+**External Dependencies**
+
+The Next-Shopify project relies on several external dependencies to provide its core functionality:
+
+* **React (^17.0.2)**: JavaScript library for building user interfaces, used as the foundation for all components.
+* **Next.js (^12.1.0)**: React framework that provides server-side rendering, routing, and other advanced features.
+* **Tailwind CSS (^3.0.23)**: Utility-first CSS framework used for styling components.
+* **PostCSS (^8.4.6)**: Tool for transforming CSS with JavaScript plugins, used in conjunction with Tailwind CSS.
+* **Autoprefixer (^10.4.2)**: PostCSS plugin that adds vendor prefixes to CSS rules.
+
+**Development Dependencies**
+
+* **ESLint (^8.9.0)**: JavaScript linting tool for identifying and reporting on patterns in JavaScript code.
+* **ESLint Config Next (^12.1.0)**: ESLint configuration specifically designed for Next.js projects.
+
+**System Requirements**
+
+To run the Next-Shopify project, the following system requirements must be met:
+
+* **Node.js**: Version 14.x or higher
+* **npm**: Version 6.x or higher or **Yarn**: Version 1.22.x or higher
+* **Modern Web Browser**: Latest versions of Chrome, Firefox, Safari, or Edge
+
+**Environment Configuration**
+
+The project requires the following environment variables to be configured:
+
+* `NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN`: The domain of the Shopify store (e.g., `your-store.myshopify.com`)
+* `NEXT_PUBLIC_SHOPIFY_STOREFRONT_ACCESS_TOKEN`: The Storefront API access token for the Shopify store
+* `NEXT_PUBLIC_SITE_TITLE`: The title of the site to be displayed in the browser tab and SEO metadata
+
+These environment variables can be configured in a `.env.local` file at the root of the project or through the hosting platform's environment variable configuration.
+
+**Installation and Setup**
+
+To set up the project, follow these steps:
+
+1. Clone the repository
+2. Install dependencies using npm or yarn:
+   ```
+   npm install
+   # or
+   yarn install
+   ```
+3. Create a `.env.local` file with the required environment variables
+4. Start the development server:
+   ```
+   npm run dev
+   # or
+   yarn dev
+   ```
+
+The application will be available at `http://localhost:3000` by default.
+
+**Compatibility and Constraints**
+
+The Next-Shopify project is designed to work with Shopify stores that have the Storefront API enabled. It is compatible with standard Shopify product and collection structures and does not require any custom Shopify apps or extensions to function.
+
+The project is optimized for modern web browsers and may not provide full functionality in older browsers that do not support modern JavaScript features.","You are a technical documentation expert creating comprehensive project-level documentation. Your task is to synthesize information from root-level files and immediate child folders into cohesive, accurate project documentation.
+
+Key Requirements:
+- Create high-level project documentation that provides a clear overview of the entire system
+- Synthesize information from both files and folders documentations to create a complete picture
+- Maintain consistent terminology and technical accuracy
+- Focus on project-wide patterns, architectures, and relationships
+- Include only information that is explicitly present in the source documentation
+
+Context:
+Project Name: Next-Shopify
+Project Path: ./uploaded_projects\Next-Shopify\next-shopify-starter-main
+Section: Dependencies and Requirements
+
+Available Documentation:
+File Documentation:
+File: ./uploaded_projects\Next-Shopify\next-shopify-starter-main\package.json
+This file contains the following dependencies:
+- react: ^17.0.2
+- react-dom: ^17.0.2
+- next: ^12.1.0
+- tailwindcss: ^3.0.23
+- postcss: ^8.4.6
+- autoprefixer: ^10.4.2
+- eslint: ^8.9.0
+- eslint-config-next: ^12.1.0
+
+File: ./uploaded_projects\Next-Shopify\next-shopify-starter-main\next.config.js
+This file contains environment variable configuration for Shopify API access.
+
+File: ./uploaded_projects\Next-Shopify\next-shopify-starter-main\README.md
+This file contains installation and setup instructions.
+
+Output Format:
+### 6. Dependencies and Requirements
+
+**External Dependencies**
+[List and describe the main dependencies]
+
+**Development Dependencies**
+[List and describe development dependencies]
+
+**System Requirements**
+[Specify required software and hardware]
+
+**Environment Configuration**
+[Detail required environment variables and configuration]
+
+**Installation and Setup**
+[Provide step-by-step setup instructions]
+
+**Compatibility and Constraints**
+[Note any compatibility issues or limitations]
+
+Guidelines:
+1. Synthesize information across all files and folders to create a unified narrative
+2. Preserve technical accuracy and specificity from source documentation
+3. Highlight common patterns and relationships
+4. Use consistent terminology throughout",4,0.8
+"### 7. Folder Inter-Relationships
+
+**Interactions with Other Folders**
+
+The `context` folder in the Next-Shopify project has significant interactions with several other folders in the codebase:
+
+* **Components Folder**: Components throughout the application consume the context providers from this folder to access cart state and functions. The `Layout` component wraps the entire application with the `CartProvider`, making cart functionality available globally.
+
+* **Pages Folder**: Page components use the context hooks to access cart data and functions. For example, the `cart.js` page uses `useCartContext` to display cart items and checkout information.
+
+* **Utils Folder**: The cart management functions in this folder rely on utility functions from the `utils` folder for local storage operations and checkout management. Specifically, `addToCart` and `updateCartItemQuantity` use `saveLocalData`, `createShopifyCheckout`, and `updateShopifyCheckout`.
+
+* **Lib Folder**: The context functions indirectly depend on the Shopify API functions in the `lib` folder through the utility functions in the `utils` folder. These functions are used to create and update Shopify checkouts.
+
+**Data Flow**
+
+The data flow involving the `context` folder follows these patterns:
+
+1. **Cart State Initialization**:
+   * When the application loads, the `CartProvider` initializes cart state from local storage using utility functions from the `utils` folder.
+
+2. **Adding Items to Cart**:
+   * When a user adds an item to the cart, components call the `addToCart` function from `useAddToCartContext`.
+   * If the cart is empty, `addToCart` creates a new Shopify checkout using functions from the `utils` folder, which in turn use functions from the `lib` folder.
+   * The cart state is updated and saved to local storage.
+
+3. **Updating Cart Items**:
+   * When a user updates item quantities, components call the `updateCartItemQuantity` function from `useUpdateCartQuantityContext`.
+   * This function updates the cart state and synchronizes with the Shopify checkout using functions from the `utils` folder.
+   * The updated cart state is saved to local storage.
+
+4. **Accessing Cart Data**:
+   * Components throughout the application access cart data using the `useCartContext` hook.
+   * This data is used to display cart items, item counts, and checkout links.
+
+**Dependency Chain**
+
+The dependency chain involving the `context` folder can be visualized as follows:
+
+```
+Components → Context → Utils → Lib → Shopify API
+```
+
+This chain represents how user interactions flow through the application:
+
+1. User interacts with a component (e.g., clicks "Add to Cart")
+2. Component calls a function from the context
+3. Context function uses utility functions to manage data
+4. Utility functions call Shopify API functions
+5. API functions communicate with the Shopify API
+
+**Integration Points**
+
+Key integration points between the `context` folder and other parts of the application include:
+
+* **CartProvider Component**: Integrated into the `Layout` component to provide cart functionality throughout the application.
+* **Context Hooks**: Used in product and cart components to access cart state and functions.
+* **Cart Management Functions**: Integrated with utility functions for local storage and Shopify checkout operations.
+
+These inter-relationships demonstrate how the `context` folder serves as a central hub for cart functionality, connecting user interface components with data persistence and API operations.","You are a technical documentation expert creating comprehensive folder-level documentation. Your task is to synthesize information from multiple files and subfolders into cohesive, accurate documentation.
+
+Key Requirements:
+- Focus on factual information derived directly from the provided documentation
+- Maintain consistent terminology across sections
+- Highlight relationships and dependencies between components
+- Use clear, precise language without speculation
+- Include only information that is explicitly present in the source documentation
+
+Context:
+Folder Path: ./uploaded_projects\Next-Shopify\next-shopify-starter-main\context
+Section: folder_inter_relationships
+
+Files Documentation:
+File: ./uploaded_projects\Next-Shopify\next-shopify-starter-main\context\Store.js
+This file contains React context providers and cart management functions including:
+- CartProvider: Wraps the application with cart context
+- useCartContext: Hook for accessing cart state
+- useAddToCartContext: Hook for adding items to cart
+- useUpdateCartQuantityContext: Hook for updating cart item quantities
+- addToCart: Function for adding items to cart
+- updateCartItemQuantity: Function for updating cart item quantities
+
+Related Folders:
+- components: Contains UI components that use the context
+- pages: Contains page components that use the context
+- utils: Contains utility functions used by the context
+- lib: Contains Shopify API functions
+
+Output Format:
+### 7. Folder Inter-Relationships
+
+**Interactions with Other Folders**
+[Describe how this folder interacts with other folders]
+
+**Data Flow**
+[Explain the flow of data between this folder and others]
+
+**Dependency Chain**
+[Detail the chain of dependencies involving this folder]
+
+**Integration Points**
+[Identify key points where this folder integrates with other components]
+
+Guidelines:
+1. Synthesize information across all files and subfolders to create a unified narrative
+2. Preserve technical accuracy and specificity from source documentation
+3. Highlight common patterns and relationships
+4. Use consistent terminology throughout
+5. Format code examples with proper syntax highlighting
+6. Include cross-references between related components",5,1.0
+"### 8. Folder Dependencies
+
+**External Dependencies**
+
+The `pages` folder in the Next-Shopify project relies on several external dependencies to fulfill its functionality:
+
+* **Next.js**: The folder structure

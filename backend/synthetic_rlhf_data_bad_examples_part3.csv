@@ -1,0 +1,291 @@
+response,prompt,rating,reward
+"### 27. Schema Definitions
+
+The app has some schemas defined with Pydantic. These schemas are used for data validation and serialization.
+
+User schema has fields like email and password. Order schema has fields like items and status.
+
+The schemas are in the app/schemas folder. They're used by the API endpoints to validate request and response data.
+
+Pydantic does some validation but I'm not sure exactly what rules are applied. Probably email validation and stuff like that.
+
+The schemas might have some relationships but it's not clear from the documentation.","You are a technical documentation expert creating comprehensive folder-level documentation. Your task is to synthesize information from multiple files and subfolders into cohesive, accurate documentation.
+
+Key Requirements:
+- Focus on factual information derived directly from the provided documentation
+- Maintain consistent terminology across sections
+- Highlight relationships and dependencies between components
+- Use clear, precise language without speculation
+- Include only information that is explicitly present in the source documentation
+
+Context:
+Folder Path: ./uploaded_projects\user-order-fastapi\user-order-fastapi-main\app\schemas
+Section: schema_definitions
+
+Files Documentation:
+File: ./uploaded_projects\user-order-fastapi\user-order-fastapi-main\app\schemas\user.py
+This file defines Pydantic schemas for user data including UserBase, UserCreate, UserUpdate, and UserInDB.
+
+File: ./uploaded_projects\user-order-fastapi\user-order-fastapi-main\app\schemas\order.py
+This file defines Pydantic schemas for order data including OrderBase, OrderCreate, OrderUpdate, and OrderInDB.
+
+File: ./uploaded_projects\user-order-fastapi\user-order-fastapi-main\app\schemas\token.py
+This file defines Pydantic schemas for authentication tokens.
+
+Output Format:
+### 2. Schema Definitions
+
+**Schema Types**
+[Describe the different types of schemas and their purposes]
+
+**Field Definitions**
+[Detail the fields defined in each schema]
+
+**Validation Rules**
+[Explain the validation rules applied to schema fields]
+
+**Schema Relationships**
+[Describe how schemas relate to each other]
+
+Guidelines:
+1. Synthesize information across all files and subfolders to create a unified narrative
+2. Preserve technical accuracy and specificity from source documentation
+3. Highlight common patterns and relationships
+4. Use consistent terminology throughout",2,0.2
+
+"### 28. CRUD Operations
+
+The app has CRUD operations for users and orders. These operations interact with the database.
+
+CRUD stands for Create, Read, Update, Delete. These are basic database operations.
+
+The CRUD functions are in the app/crud folder. They use SQLAlchemy to interact with the database.
+
+Example operations:
+- create_user
+- get_user
+- update_user
+- delete_user
+
+Similar operations exist for orders. The functions take parameters and return data from the database.
+
+Error handling is probably implemented but details are unclear.","You are a technical documentation expert creating comprehensive folder-level documentation. Your task is to synthesize information from multiple files and subfolders into cohesive, accurate documentation.
+
+Key Requirements:
+- Focus on factual information derived directly from the provided documentation
+- Maintain consistent terminology across sections
+- Highlight relationships and dependencies between components
+- Use clear, precise language without speculation
+- Include only information that is explicitly present in the source documentation
+
+Context:
+Folder Path: ./uploaded_projects\user-order-fastapi\user-order-fastapi-main\app\crud
+Section: crud_operations
+
+Files Documentation:
+File: ./uploaded_projects\user-order-fastapi\user-order-fastapi-main\app\crud\crud_user.py
+This file contains CRUD operations for users including create_user, get_user, update_user, and delete_user.
+
+File: ./uploaded_projects\user-order-fastapi\user-order-fastapi-main\app\crud\crud_order.py
+This file contains CRUD operations for orders including create_order, get_order, update_order, and delete_order.
+
+Output Format:
+### 3. CRUD Operations
+
+**Operation Types**
+[Describe the different types of CRUD operations implemented]
+
+**Function Signatures**
+[Detail the function signatures and parameters]
+
+**Return Values**
+[Explain what each operation returns]
+
+**Error Handling**
+[Describe how errors are handled in CRUD operations]
+
+Guidelines:
+1. Synthesize information across all files and subfolders to create a unified narrative
+2. Preserve technical accuracy and specificity from source documentation
+3. Highlight common patterns and relationships
+4. Use consistent terminology throughout",1,0.0
+
+"### 29. Authentication Flow
+
+The app uses JWT for authentication. JWT stands for JSON Web Token.
+
+Authentication flow:
+1. User provides credentials
+2. System checks credentials
+3. If valid, JWT token is created
+4. Token is returned to user
+5. User includes token in future requests
+
+The token has an expiration time. After that, the user needs to login again.
+
+The token is included in the Authorization header with the Bearer prefix.
+
+The system probably has refresh tokens but I don't see them in the documentation.","You are a technical documentation expert creating comprehensive project-level documentation. Your task is to synthesize information from root-level files and immediate child folders into cohesive, accurate project documentation.
+
+Key Requirements:
+- Create high-level project documentation that provides a clear overview of the entire system
+- Synthesize information from both files and folders documentations to create a complete picture
+- Maintain consistent terminology and technical accuracy
+- Focus on project-wide patterns, architectures, and relationships
+- Include only information that is explicitly present in the source documentation
+
+Context:
+Project Name: user-order-fastapi
+Project Path: ./uploaded_projects\user-order-fastapi\user-order-fastapi-main
+Section: Authentication Flow
+
+Available Documentation:
+File Documentation:
+File: ./uploaded_projects\user-order-fastapi\user-order-fastapi-main\app\core\security.py
+This file contains security utilities including password hashing, token generation, and verification functions.
+
+File: ./uploaded_projects\user-order-fastapi\user-order-fastapi-main\app\api\endpoints\login.py
+This file implements the login endpoint that authenticates users and issues tokens.
+
+File: ./uploaded_projects\user-order-fastapi\user-order-fastapi-main\app\api\deps.py
+This file defines dependencies for authentication and authorization.
+
+Output Format:
+### 14. Authentication Flow
+
+**Login Process**
+[Describe the login process in detail]
+
+**Token Generation**
+[Explain how tokens are generated]
+
+**Token Validation**
+[Detail how tokens are validated on subsequent requests]
+
+**Token Refresh**
+[Explain the token refresh process]
+
+**Logout Process**
+[Describe the logout process]
+
+Guidelines:
+1. Synthesize information across all files and folders to create a unified narrative
+2. Preserve technical accuracy and specificity from source documentation
+3. Highlight common patterns and relationships
+4. Use consistent terminology throughout",2,0.2
+
+"### 30. Middleware Components
+
+The app has some middleware components. Middleware processes requests before they reach the endpoints.
+
+Possible middleware includes:
+- CORS middleware
+- Authentication middleware
+- Logging middleware
+
+Middleware is configured in the main.py file. It's applied to all requests.
+
+CORS middleware allows cross-origin requests from certain domains. Authentication middleware checks tokens.
+
+There might be other middleware but it's not mentioned in the documentation.","You are a technical documentation expert creating comprehensive project-level documentation. Your task is to synthesize information from root-level files and immediate child folders into cohesive, accurate project documentation.
+
+Key Requirements:
+- Create high-level project documentation that provides a clear overview of the entire system
+- Synthesize information from both files and folders documentations to create a complete picture
+- Maintain consistent terminology and technical accuracy
+- Focus on project-wide patterns, architectures, and relationships
+- Include only information that is explicitly present in the source documentation
+
+Context:
+Project Name: user-order-fastapi
+Project Path: ./uploaded_projects\user-order-fastapi\user-order-fastapi-main
+Section: Middleware Components
+
+Available Documentation:
+File Documentation:
+File: ./uploaded_projects\user-order-fastapi\user-order-fastapi-main\app\main.py
+This file configures the FastAPI application with middleware and routes.
+
+Output Format:
+### 15. Middleware Components
+
+**Available Middleware**
+[List and describe all middleware components used in the application]
+
+**Middleware Configuration**
+[Explain how middleware is configured]
+
+**Middleware Order**
+[Detail the order in which middleware is applied]
+
+**Custom Middleware**
+[Describe any custom middleware implemented]
+
+Guidelines:
+1. Synthesize information across all files and folders to create a unified narrative
+2. Preserve technical accuracy and specificity from source documentation
+3. Highlight common patterns and relationships
+4. Use consistent terminology throughout",1,0.0
+
+"### 31. Database Migrations
+
+The app uses Alembic for database migrations. Migrations are in the alembic folder.
+
+Migrations track changes to the database schema. They allow upgrading and downgrading the database.
+
+To run migrations:
+```
+alembic upgrade head
+```
+
+To create a new migration:
+```
+alembic revision --autogenerate -m "description"
+```
+
+Migrations are applied automatically when the app starts up probably.","You are a technical documentation expert creating comprehensive project-level documentation. Your task is to synthesize information from root-level files and immediate child folders into cohesive, accurate project documentation.
+
+Key Requirements:
+- Create high-level project documentation that provides a clear overview of the entire system
+- Synthesize information from both files and folders documentations to create a complete picture
+- Maintain consistent terminology and technical accuracy
+- Focus on project-wide patterns, architectures, and relationships
+- Include only information that is explicitly present in the source documentation
+
+Context:
+Project Name: user-order-fastapi
+Project Path: ./uploaded_projects\user-order-fastapi\user-order-fastapi-main
+Section: Database Migrations
+
+Available Documentation:
+Folder Documentation:
+Folder: ./uploaded_projects\user-order-fastapi\user-order-fastapi-main\alembic
+This folder contains database migration configuration and scripts.
+
+File Documentation:
+File: ./uploaded_projects\user-order-fastapi\user-order-fastapi-main\alembic.ini
+This file configures Alembic for database migrations.
+
+Output Format:
+### 16. Database Migrations
+
+**Migration Framework**
+[Describe the migration framework used]
+
+**Migration Structure**
+[Explain how migrations are structured]
+
+**Creating Migrations**
+[Detail the process for creating new migrations]
+
+**Applying Migrations**
+[Explain how to apply migrations]
+
+**Reverting Migrations**
+[Describe how to revert migrations]
+
+Guidelines:
+1. Synthesize information across all files and folders to create a unified narrative
+2. Preserve technical accuracy and specificity from source documentation
+3. Highlight common patterns and relationships
+4. Use consistent terminology throughout",2,0.2
